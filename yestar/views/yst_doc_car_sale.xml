@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Sequence or Running Number -->
+    <record id="fal_document_car_sale_number" model="ir.sequence">
+        <field name="name">Document Car Sale Sequence</field>
+        <field name="code">fal.document.car.sale.number</field>
+        <field name="prefix">DCS.%(y)s.%(month)s-</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="fal_view_document_form" model="ir.ui.view">
+        <field name="name">document.car.sale.form</field>
+        <field name="model">document.car.sale</field>
+        <field name="arch" type="xml">
+            <form string="Document Form" create="false" delete="false">
+                <sheet>
+                    
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    
+                    <group>
+                        <field name="fal_origin" readonly="1"/>
+                        <field name="fal_product_id" readonly="1"/>
+                        <field name="fal_sequence_item" readonly="1"/>
+                        <field name="fal_no_stnk"/>
+                        <field name="fal_no_bpkb"/>
+                        <field name="fal_fleet" readonly="1"/>
+                    </group>
+                </sheet>
+
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="fal_view_document_tree" model="ir.ui.view">
+        <field name="name">document.car.sale.tree</field>
+        <field name="model">document.car.sale</field>
+        <field name="arch" type="xml">
+            <tree string="Document Tree" create="false" delete="false">
+                <field name="name"/>
+                <field name="fal_origin"/>
+                <field name="fal_product_id"/>
+                <field name="fal_sequence_item"/>
+                <field name="fal_no_stnk"/>
+                <field name="fal_no_bpkb"/>
+                <field name="fal_fleet"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="fal_view_document_action" model="ir.actions.act_window">
+        <field name="name">Document Car Sale</field>
+        <field name="res_model">document.car.sale</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field eval="False" name="view_id"/>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to record a New Car Document
+            </p>
+        </field>
+    </record>
+
+    <record id="fal_view_document_action_v2" model="ir.actions.act_window">
+        <field name="name">Document Car Sale</field>
+        <field name="res_model">document.car.sale</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field eval="False" name="view_id"/>
+        <field name="view_id" ref="fal_view_document_tree"/>
+        <field name="target">new</field>
+
+    </record>
+
+    <menuitem action="fal_view_document_action" id="menu_view_document_action" parent="sales_team.menu_sales" sequence="13"/>
+</odoo>

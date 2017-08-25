@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- window action for open document.car.sale-->
+        <record id="view_order_form_inherit_sale_stock" model="ir.ui.view">
+            <field name="name">sale.order.form.sale.document</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_view_invoice']" position="after">
+                    <button
+                        name="fal_action_view_document"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-book" 
+                        string="Document"
+                        attrs="{'invisible': [('delivery_count', '=', 0)]}">
+                    </button>
+                </xpath>
+                <xpath expr="//field[@name='payment_term_id']" position="before">
+                    <field name="fal_payment"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_pack_operation_lot_tree_inherit" model="ir.ui.view">
+            <field name="name">stock.pack.operation.sale.document</field>
+            <field name="model">stock.pack.operation</field>
+            <field name="inherit_id" ref="stock.view_pack_operation_lot_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='pack_lot_ids']/tree/field[@name='lot_id']" position="after">
+                    <field name="fal_fleet" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
